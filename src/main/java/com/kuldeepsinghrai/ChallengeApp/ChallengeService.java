@@ -9,9 +9,9 @@ import java.util.List;
 public class ChallengeService {
     private List<Challenge> challenges = new ArrayList<>();
 
+    private Long nextId = 1L;
+    
     public ChallengeService() {
-        Challenge challenge1 = new Challenge(1L, "January", "Learn a New Programming Language");
-        challenges.add(challenge1);
     }
 
 
@@ -21,6 +21,7 @@ public class ChallengeService {
 
     public boolean addChallenges(Challenge challenge) {
         if (challenge != null) {
+            challenge.setId(nextId++);
             challenges.add(challenge);
             return true;
         } else {
