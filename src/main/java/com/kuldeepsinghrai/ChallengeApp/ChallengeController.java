@@ -1,5 +1,8 @@
 package com.kuldeepsinghrai.ChallengeApp;
 
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,31 +17,31 @@ public class ChallengeController {
     }
 
     @GetMapping("/challenges")
-    public List<Challenge> getAllChallenges() {
-        return challengeService.getAllChallenges();
+    public ResponseEntity<List<Challenge>> getAllChallenges() {
+        return new ResponseEntity<>(challengeService.getAllChallenges(),HttpStatus.OK);
     }
 
 
     @PostMapping("/challenges")
-    public String addChallenges(@RequestBody Challenge challenge) {
+    public ResponseEntity<String> addChallenges(@RequestBody Challenge challenge) {
         boolean isChallengeAdded = challengeService.addChallenges(challenge);
 
         if (isChallengeAdded) {
-            return "Challenge added successfully";
+            return new ResponseEntity<>("Challenge created successfully",HttpStatus.CREATED);
         } else {
-            return "Challenge not added successfully";
+            return new ResponseEntity<>("Challenge not created",HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/challenges/{month}")
-    public Challenge getChallengeByMonth(@PathVariable String month) {
+    public ResponseEntity<Challenge> getChallengeByMonth(@PathVariable String month) {
 
         Challenge challenge = challengeService.getChallengeByMonth(month);
 
         if (challenge!=null){
-            return challenge;
+            return new ResponseEntity<>(challenge, HttpStatus.OK);
         }else {
-        return null;
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
