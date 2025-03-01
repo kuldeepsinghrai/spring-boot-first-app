@@ -10,10 +10,14 @@ import java.util.List;
 public class ChallengeController {
     private List<Challenge> challenges = new ArrayList<>();
 
+    public ChallengeController() {
+        Challenge challenge1 = new Challenge(1L, "January",
+                "Learn a New Programming Language");
+        challenges.add(challenge1);
+    }
+
     @GetMapping("/challenges")
     public List<Challenge> getAllChallenges() {
-        challenges.clear();
-        challenges.add(new Challenge(1L,"Jan","This is Challenge Description"));
         return challenges;
     }
 
