@@ -1,9 +1,6 @@
 package com.kuldeepsinghrai.ChallengeApp;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,17 @@ public class ChallengeController {
         } else {
             return "Challenge not added successfully";
         }
+    }
 
+    @GetMapping("/challenges/{month}")
+    public Challenge getChallengeByMonth(@PathVariable String month) {
+
+        Challenge challenge = challengeService.getChallengeByMonth(month);
+
+        if (challenge!=null){
+            return challenge;
+        }else {
+        return null;
+        }
     }
 }
