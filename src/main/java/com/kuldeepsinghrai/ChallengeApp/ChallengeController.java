@@ -1,6 +1,5 @@
 package com.kuldeepsinghrai.ChallengeApp;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/challenges")
 public class ChallengeController {
 
     private ChallengeService challengeService;
@@ -16,13 +16,13 @@ public class ChallengeController {
         this.challengeService = challengeService;
     }
 
-    @GetMapping("/challenges")
+    @GetMapping
     public ResponseEntity<List<Challenge>> getAllChallenges() {
         return new ResponseEntity<>(challengeService.getAllChallenges(),HttpStatus.OK);
     }
 
 
-    @PostMapping("/challenges")
+    @PostMapping
     public ResponseEntity<String> addChallenges(@RequestBody Challenge challenge) {
         boolean isChallengeAdded = challengeService.addChallenges(challenge);
 
@@ -33,7 +33,7 @@ public class ChallengeController {
         }
     }
 
-    @GetMapping("/challenges/{month}")
+    @GetMapping("/{month}")
     public ResponseEntity<Challenge> getChallengeByMonth(@PathVariable String month) {
 
         Challenge challenge = challengeService.getChallengeByMonth(month);
@@ -45,7 +45,7 @@ public class ChallengeController {
         }
     }
 
-    @PutMapping("/challenges/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateChallenge(@PathVariable Long id, @RequestBody Challenge updatedChallenge){
         boolean isChallengeUpdated = challengeService.updateChallenge(id,updatedChallenge);
         if (isChallengeUpdated) {
@@ -55,7 +55,7 @@ public class ChallengeController {
         }
     }
 
-    @DeleteMapping("/challenges/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteChallenge(@PathVariable Long id){
         boolean isChallengeDeleted = challengeService.deleteChallenge(id);
         if (isChallengeDeleted) {
